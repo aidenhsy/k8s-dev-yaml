@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: takeout-service
+  labels:
+    app: takeout-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: takeout-service
+  template:
+    metadata:
+      labels:
+        app: takeout-service
+    spec:
+      containers:
+        - name: takeout-service
+          image: saihu-acr-registry-vpc.cn-hongkong.cr.aliyuncs.com/dev/takeout-service:dev
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 4005
+          envFrom:
+            - secretRef:
+                name: takeout-service-secret

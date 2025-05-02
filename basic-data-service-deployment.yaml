@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: basic-data-service
+  labels:
+    app: basic-data-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: basic-data-service
+  template:
+    metadata:
+      labels:
+        app: basic-data-service
+    spec:
+      containers:
+        - name: basic-data-service
+          image: saihu-acr-registry-vpc.cn-hongkong.cr.aliyuncs.com/dev/basic-data-service:dev
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 4000
+            - containerPort: 5000
+          envFrom:
+            - secretRef:
+                name: basic-data-service-secret

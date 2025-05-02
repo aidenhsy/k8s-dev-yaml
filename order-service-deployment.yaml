@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-service
+  labels:
+    app: order-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: order-service
+  template:
+    metadata:
+      labels:
+        app: order-service
+    spec:
+      containers:
+        - name: order-service
+          image: saihu-acr-registry-vpc.cn-hongkong.cr.aliyuncs.com/dev/order-service:dev
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 4008
+            - containerPort: 5008
+          envFrom:
+            - secretRef:
+                name: order-service-secret
