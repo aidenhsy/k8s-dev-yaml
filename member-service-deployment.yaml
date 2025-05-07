@@ -21,6 +21,20 @@ spec:
           ports:
             - containerPort: 4002
             - containerPort: 5002
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 4002
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 4002
+            initialDelaySeconds: 15
+            periodSeconds: 5
+            timeoutSeconds: 3
           envFrom:
             - secretRef:
                 name: member-service-secret
