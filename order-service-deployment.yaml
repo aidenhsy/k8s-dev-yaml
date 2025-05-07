@@ -21,6 +21,20 @@ spec:
           ports:
             - containerPort: 4008
             - containerPort: 5008
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 4008
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 4008
+            initialDelaySeconds: 15
+            periodSeconds: 5
+            timeoutSeconds: 3
           envFrom:
             - secretRef:
                 name: order-service-secret
