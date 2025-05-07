@@ -1,15 +1,31 @@
+# --- 1. external HTTP /healthz ---
 apiVersion: v1
 kind: Service
 metadata:
   name: basic-data-service
+  annotations:
+    service.beta.kubernetes.io/alibaba-cloud-loadbalancer-health-check-type: 'http'
+    service.beta.kubernetes.io/alibaba-cloud-loadbalancer-health-check-uri: '/healthz'
+    service.beta.kubernetes.io/alibaba-cloud-loadbalancer-health-check-connect-port: '4000'
 spec:
   type: LoadBalancer
+  selector:
+    app: basic-data-service
   ports:
     - name: http
       port: 80
       targetPort: 4000
-    - name: tcp
-      port: 5000
-      targetPort: 5000
+---
+# --- 2. in-cluster raw TCP ---
+apiVersion: v1
+kind: Service
+metadata:
+  name: basic-data-service-tcp
+spec:
+  clusterIP: None
   selector:
     app: basic-data-service
+  ports:
+    - name: tcp-micro
+      port: 5000
+      targetPort: 5000
