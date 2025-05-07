@@ -20,7 +20,7 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 4000
-            - containerPort: 5000
+            # - containerPort: 5000
           startupProbe:
             httpGet:
               path: /healthz
