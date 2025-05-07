@@ -21,6 +21,12 @@ spec:
           ports:
             - containerPort: 4000
             - containerPort: 5000
+          startupProbe:
+            httpGet:
+              path: /healthz
+              port: 4000
+            failureThreshold: 30
+            periodSeconds: 1
           livenessProbe:
             httpGet:
               path: /healthz
