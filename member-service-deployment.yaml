@@ -20,6 +20,7 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 4002
+            - containerPort: 5002
           envFrom:
             - secretRef:
                 name: member-service-secret
