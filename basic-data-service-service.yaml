@@ -3,12 +3,8 @@ apiVersion: v1
 kind: Service
 metadata:
   name: basic-data-service
-  annotations:
-    service.beta.kubernetes.io/alibaba-cloud-loadbalancer-health-check-type: 'http'
-    service.beta.kubernetes.io/alibaba-cloud-loadbalancer-health-check-uri: '/healthz'
-    service.beta.kubernetes.io/alibaba-cloud-loadbalancer-health-check-connect-port: '4000'
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     app: basic-data-service
   ports:
