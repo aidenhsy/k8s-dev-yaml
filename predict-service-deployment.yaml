@@ -20,6 +20,7 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 4004
+            - containerPort: 5004
           envFrom:
             - secretRef:
                 name: predict-service-secret
